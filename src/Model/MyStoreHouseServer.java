@@ -33,9 +33,11 @@ public class MyStoreHouseServer extends Thread {
                 {
                     sql_select select = new sql_select(con);
                     Message ms2 = new Message();
-                    if(select.Login(u))
+                    u.setType(select.Select_User(u));
+                    if(u.getType() != 0)
                     {
                         ms2.setMesType(MessageType.message_login_success);
+                        ms2.setU(u);
                         oos.writeObject(ms2);
                     }
                     else{
@@ -45,7 +47,24 @@ public class MyStoreHouseServer extends Thread {
                 }
                 else if(ms.getMesType().equals(MessageType.message_register))
                 {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    u.setType(select.Select_User(u));
+//                    System.out.println(u.getType());
 
+                    if(u.getType() == 0)
+                    {
+                        sql_insert insert = new sql_insert(con);
+                        u.setType((insert.insert_User(u)));
+                        ms2.setU(u);
+//                        System.out.println("2"+u.getType());
+                        ms2.setMesType(MessageType.message_register_success);
+                        oos.writeObject(ms2);
+                    }
+                    else{
+                        ms2.setMesType(MessageType.message_register_fail);
+                        oos.writeObject(ms2);
+                    }
                 }
                 else if(ms.getMesType().equals(MessageType.message_select))
                 {

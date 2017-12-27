@@ -11,4 +11,5 @@ public interface MessageType {
     String message_select = "7";
     String message_update = "8";
     String message_delete = "9";
+    String message_insert = "10";
 }

@@ -16,8 +16,8 @@ public class sql_select {
         this.con = con;
     }
 
-    public boolean Login(User u) throws SQLException {
-        boolean sym = false;
+    public int Select_User(User u) throws SQLException {
+        int sym = 0;
         String sql = "select * from user where username = ? and userpwd = ?";
         PreparedStatement psmt = con.prepareStatement(sql);
         psmt.setString(1,u.getUsername());
@@ -25,8 +25,10 @@ public class sql_select {
         ResultSet rs = psmt.executeQuery();
         if(rs.next())
         {
-            sym = true;
+            sym = rs.getInt("usertype");
         }
+        rs.close();
+        psmt.close();
         return sym;
     }
 }

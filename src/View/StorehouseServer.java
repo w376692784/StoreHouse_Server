@@ -15,6 +15,7 @@ public class StorehouseServer extends JFrame implements ActionListener {
     public static void main(String [] args)
     {
         StorehouseServer storehouseServer = new StorehouseServer();
+        new MyStoreHouseServer();
     }
 
     public StorehouseServer()
