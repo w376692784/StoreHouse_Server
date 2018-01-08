@@ -18,7 +18,7 @@ public class sql_insert {
 
     public int insert_User(User u) throws SQLException {
         int sym = 0;
-        String sql = "insert into user values(?,?,3)";
+        String sql = "insert into user values(null,?,?,3)";
         PreparedStatement psmt = con.prepareStatement(sql);
         psmt.setString(1,u.getUsername());
         psmt.setString(2,u.getUserpwd());

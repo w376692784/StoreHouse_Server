@@ -1,10 +1,14 @@
 package Common;
 
-public class Message implements java.io.Serializable {
+import java.sql.ResultSet;
+import java.util.Vector;
 
-    private User u;
+public class Message implements java.io.Serializable{
+
     private String mesType;
     private String con;
+    private User u;
+    private Vector v;
 
     public String getMesType() {
         return mesType;
@@ -30,6 +34,11 @@ public class Message implements java.io.Serializable {
         this.u = u;
     }
 
+    public Vector getV() {
+        return v;
+    }
 
-
+    public void setV(Vector v) {
+        this.v = v;
+    }
 }

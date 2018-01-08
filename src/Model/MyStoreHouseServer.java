@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import Common.*;
 import Db.*;
+import sun.misc.resources.Messages_sv;
 
 public class MyStoreHouseServer extends Thread {
 
@@ -45,6 +46,7 @@ public class MyStoreHouseServer extends Thread {
                         oos.writeObject(ms2);
                     }
                 }
+
                 else if(ms.getMesType().equals(MessageType.message_register))
                 {
                     sql_select select = new sql_select(con);
@@ -66,10 +68,76 @@ public class MyStoreHouseServer extends Thread {
                         oos.writeObject(ms2);
                     }
                 }
+
                 else if(ms.getMesType().equals(MessageType.message_select))
                 {
 
                 }
+
+                else if(ms.getMesType().equals(MessageType.message_select_userTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_userTable(ms.getU()));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_storeTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_storeTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_customsTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_customsTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_supplierTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_supplierTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_storehouseTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_storehouseTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_update_user))
+                {
+                    sql_update update = new sql_update(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(update.Update_User(ms.getU())));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_delete_user))
+                {
+                    sql_delete delete = new sql_delete(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(delete.Delete_User(ms.getU())));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_delete_supplierTable))
+                {
+                    sql_delete delete = new sql_delete(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(delete.Delete_supplier(ms.getCon())));
+                    oos.writeObject(ms2);
+                }
+
 
                 sqlConnection.closeCon(con);
             }

@@ -39,7 +39,6 @@ public class StorehouseServer extends JFrame implements ActionListener {
         if(e.getSource() == jb1)
         {
             myStoreHouseServer = new MyStoreHouseServer();
-
         }
     }
 }
