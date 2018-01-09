@@ -32,7 +32,8 @@ public interface MessageType {
     String message_insert_customsTable = "28";
     String message_insert_supplierTable = "29";
     String message_insert_storehouseTable = "30";
+    String message_insert_InputTable = "31";
+    String message_insert_OutputTable = "32";
 
-    String message_select_goods = "31";
-
+    String message_select_goods = "33";
 }

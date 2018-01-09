@@ -55,6 +55,8 @@ public class sql_select {
                 else v.addElement(new String("User"));
             }
         }
+        rs.close();
+        psmt.close();
         return v;
     }
 
@@ -64,7 +66,7 @@ public class sql_select {
         if (checkEmpty.isNotEmpty(ms.getCon())) {
             sql = sql + " where Gno = " + "'"+ms.getCon()+"'";
         }
-        System.out.println(sql);
+//        System.out.println(sql);
         PreparedStatement psmt = con.prepareStatement(sql);
         ResultSet rs = psmt.executeQuery();
         Vector v = new Vector();
@@ -76,6 +78,8 @@ public class sql_select {
             v.addElement(rs.getString("Wno"));
             v.addElement(rs.getInt("Gnum"));
         }
+        rs.close();
+        psmt.close();
         return v;
     }
 
@@ -95,6 +99,8 @@ public class sql_select {
             v.addElement(rs.getString("Caddr"));
             v.addElement(rs.getString("Ctel"));
         }
+        rs.close();
+        psmt.close();
         return v;
     }
 
@@ -113,6 +119,8 @@ public class sql_select {
             v.addElement(rs.getString("Saddr"));
             v.addElement(rs.getString("Stel"));
         }
+        rs.close();
+        psmt.close();
         return v;
     }
 
@@ -131,6 +139,8 @@ public class sql_select {
             v.addElement(rs.getString("Wsize"));
             v.addElement(rs.getString("Waddr"));
         }
+        rs.close();
+        psmt.close();
         return v;
     }
 
@@ -146,6 +156,10 @@ public class sql_select {
             v.addElement(rs.getString("Tname"));
             v.addElement(rs.getString("Sno"));
         }
+        rs.close();
+        psmt.close();
         return v;
     }
+
+
 }
