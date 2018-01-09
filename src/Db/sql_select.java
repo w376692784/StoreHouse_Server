@@ -61,10 +61,10 @@ public class sql_select {
     }
 
     public Vector Select_storeTable(Message ms) throws SQLException {
-        String sql = "select * from store";
+        String sql = "select Gno,Gname,Tno,Tname,Wno,Wname,sum(Gnum) as Gnum from store group by Gno,Gname,Tno,Tname,Wno,Wname;";
 //        System.out.println(u.getUsername());
         if (checkEmpty.isNotEmpty(ms.getCon())) {
-            sql = sql + " where Gno = " + "'"+ms.getCon()+"'";
+            sql = sql + " HAVING Gno = " + "'"+ms.getCon()+"'";
         }
 //        System.out.println(sql);
         PreparedStatement psmt = con.prepareStatement(sql);
@@ -76,6 +76,7 @@ public class sql_select {
             v.addElement(rs.getString("Tno"));
             v.addElement(rs.getString("Tname"));
             v.addElement(rs.getString("Wno"));
+            v.addElement(rs.getString("Wname"));
             v.addElement(rs.getInt("Gnum"));
         }
         rs.close();
@@ -93,6 +94,28 @@ public class sql_select {
             v.addElement(rs.getString(2));
             v.addElement(rs.getString(3));
             v.addElement(rs.getString(4));
+        }
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+    public Vector Select_storeTable_detl(Message ms) throws SQLException {
+        String sql = "select * from store";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString(1));
+            v.addElement(rs.getString(2));
+            v.addElement(rs.getString(3));
+            v.addElement(rs.getString(4));
+            v.addElement(rs.getString(5));
+            v.addElement(rs.getString(6));
+            v.addElement(rs.getString(7));
+            v.addElement(rs.getString(8));
+            v.addElement(rs.getString(9));
+            v.addElement(rs.getString(10));
         }
         rs.close();
         psmt.close();
@@ -192,7 +215,8 @@ public class sql_select {
             v.addElement(rs.getString("Sno"));
             v.addElement(rs.getString("Wno"));
             v.addElement(rs.getString("Inum"));
-            v.addElement(rs.getString("Idate"));
+            v.addElement(rs.getDate("Idate"));
+//            v.addElement(rs.getString("Idate"));
         }
         rs.close();
         psmt.close();
@@ -213,7 +237,7 @@ public class sql_select {
             v.addElement(rs.getString("Cno"));
             v.addElement(rs.getString("Cname"));
             v.addElement(rs.getString("Onum"));
-            v.addElement(rs.getString("Odate"));
+            v.addElement(rs.getDate("Odate"));
         }
         rs.close();
         psmt.close();
@@ -230,6 +254,71 @@ public class sql_select {
             v.addElement(rs.getString(1));
         }
 //        System.out.println(v);
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+    public void Select_OutOfDate() throws SQLException {
+        String sql = "select * from store where Out_date < curdate()";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while(rs.next())
+        {
+            v.addElement(rs.getString(1));
+            v.addElement(rs.getString(2));
+            v.addElement(rs.getString(3));
+            v.addElement(rs.getString(4));
+            v.addElement(rs.getString(5));
+            v.addElement(rs.getString(6));
+            v.addElement(rs.getString(7));
+            v.addElement(rs.getString(8));
+            v.addElement(rs.getString(9));
+            v.addElement(rs.getString(10));
+        }
+
+        System.out.println(v);
+
+        String sql2 = "delete from OutOfDate";
+        PreparedStatement psmt2 = con.prepareStatement(sql2);
+        psmt2.executeUpdate();
+
+        String sql3 = "insert into OutOfDate values (?,?,?,?,?,?,?,?,?,?)";
+        PreparedStatement psmt3 = con.prepareStatement(sql3);
+        for(int i = 0;i<v.size();i+=10)
+        {
+            psmt3.setString(1,String.valueOf(v.get(i)));
+            psmt3.setString(2,String.valueOf(v.get(i+1)));
+            psmt3.setString(3,String.valueOf(v.get(i+2)));
+            psmt3.setString(4,String.valueOf(v.get(i+3)));
+            psmt3.setString(5,String.valueOf(v.get(i+4)));
+            psmt3.setString(6,String.valueOf(v.get(i+5)));
+            psmt3.setString(7,String.valueOf(v.get(i+6)));
+            psmt3.setString(8,String.valueOf(v.get(i+7)));
+            psmt3.setString(9,String.valueOf(v.get(i+8)));
+            psmt3.setString(10,String.valueOf(v.get(i+9)));
+            psmt3.executeUpdate();
+        }
+    }
+
+    public Vector Select_Outofdate(Message ms) throws SQLException {
+        String sql = "select * from OutOfDate";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString(1));
+            v.addElement(rs.getString(2));
+            v.addElement(rs.getString(3));
+            v.addElement(rs.getString(4));
+            v.addElement(rs.getString(5));
+            v.addElement(rs.getString(6));
+            v.addElement(rs.getString(7));
+            v.addElement(rs.getString(8));
+            v.addElement(rs.getString(9));
+            v.addElement(rs.getString(10));
+        }
         rs.close();
         psmt.close();
         return v;

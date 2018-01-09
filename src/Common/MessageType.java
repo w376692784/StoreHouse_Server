@@ -40,4 +40,6 @@ public interface MessageType {
     String message_select_outputTable = "35";
     String message_select_stores_Gno = "36";
     String message_select_storeTable_dintinct = "37";
+    String message_select_storeTable_detl = "38";
+    String message_select_OutOfDate = "40";
 }

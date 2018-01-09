@@ -30,6 +30,9 @@ public class MyStoreHouseServer extends Thread {
                 SqlConnection sqlConnection = new SqlConnection();
                 Connection con = sqlConnection.getCon();
 
+                new sql_select(con).Select_OutOfDate();
+                System.out.println("success");
+
                 if(ms.getMesType().equals(MessageType.message_login))
                 {
                     sql_select select = new sql_select(con);
@@ -90,11 +93,27 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_select_storeTable_detl))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_storeTable_detl(ms));
+                    oos.writeObject(ms2);
+                }
+
                 else if(ms.getMesType().equals(MessageType.message_select_storeTable_dintinct))
                 {
                     sql_select select = new sql_select(con);
                     Message ms2 = new Message();
                     ms2.setV(select.Select_storeTable_distinct(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_OutOfDate))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_Outofdate(ms));
                     oos.writeObject(ms2);
                 }
 
