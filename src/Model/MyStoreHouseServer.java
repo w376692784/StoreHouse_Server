@@ -114,6 +114,14 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_select_goods))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_goods(ms));
+                    oos.writeObject(ms2);
+                }
+
                 else if(ms.getMesType().equals(MessageType.message_update_user))
                 {
                     sql_update update = new sql_update(con);
@@ -138,6 +146,46 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_delete_customsTable))
+                {
+                    sql_delete delete = new sql_delete(con);
+                    Message ms2 = new Message();
+//                    System.out.println(ms.getCon());
+                    ms2.setCon(String.valueOf(delete.Delete_custom(ms.getCon())));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_delete_storehouseTable))
+                {
+                    sql_delete delete = new sql_delete(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(delete.Delete_storehouse(ms.getCon())));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_insert_supplierTable))
+                {
+                    sql_insert insert = new sql_insert(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(insert.insert_supplier(ms)));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_insert_customsTable))
+                {
+                    sql_insert insert = new sql_insert(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(insert.insert_customs(ms)));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_insert_storehouseTable))
+                {
+                    sql_insert insert = new sql_insert(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(insert.insert_storehouse(ms)));
+                    oos.writeObject(ms2);
+                }
 
                 sqlConnection.closeCon(con);
             }

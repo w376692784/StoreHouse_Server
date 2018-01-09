@@ -27,4 +27,16 @@ public class sql_delete {
         PreparedStatement psmt = con.prepareStatement(sql);
         return psmt.executeUpdate();
     }
+
+    public int Delete_custom(String Cno) throws SQLException {
+        String sql = "delete from custom where Cno=" + "'"+Cno+"'";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        return psmt.executeUpdate();
+    }
+
+    public int Delete_storehouse(String Wno) throws SQLException {
+        String sql = "delete from warehouse where Wno=" + "'"+Wno+"'";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        return psmt.executeUpdate();
+    }
 }

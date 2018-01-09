@@ -1,5 +1,6 @@
 package Db;
 
+import Common.Message;
 import Common.User;
 
 import java.sql.Connection;
@@ -28,5 +29,50 @@ public class sql_insert {
             sym = 3;
         }
         return sym;
+    }
+
+    public int insert_supplier(Message m) {
+        String sql = "insert into supplier values (?,?,?,?)";
+        try {PreparedStatement psmt = con.prepareStatement(sql);
+            psmt.setString(1,String.valueOf(m.getV().get(0)));
+            psmt.setString(2, (String) m.getV().get(1));
+            psmt.setString(3, (String) m.getV().get(2));
+            psmt.setString(4,String.valueOf(m.getV().get(3)));
+//            System.out.println(String.valueOf(psmt));
+//            System.out.println(m.getV().get(2));
+            return psmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
+    public int insert_customs(Message m) {
+        String sql = "insert into custom values (?,?,?,?,?)";
+        try {PreparedStatement psmt = con.prepareStatement(sql);
+            psmt.setString(1,String.valueOf(m.getV().get(0)));
+            psmt.setString(2,String.valueOf(m.getV().get(1)));
+            psmt.setString(3,String.valueOf(m.getV().get(2)));
+            psmt.setString(4,String.valueOf(m.getV().get(3)));
+            psmt.setString(5,String.valueOf(m.getV().get(4)));
+            System.out.println(String.valueOf(psmt));
+            System.out.println(m.getV().get(3));
+            return psmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
+    public int insert_storehouse(Message m) {
+        String sql = "insert into warehouse values (?,?,?,?)";
+        try {PreparedStatement psmt = con.prepareStatement(sql);
+            psmt.setString(1,String.valueOf(m.getV().get(0)));
+            psmt.setString(2,String.valueOf(m.getV().get(1)));
+            psmt.setInt(3,(Integer)(m.getV().get(2)));
+            psmt.setString(4,String.valueOf(m.getV().get(3)));
+            System.out.println((Integer)m.getV().get(2));
+            return psmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
+        }
     }
 }

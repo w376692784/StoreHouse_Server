@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class SqlConnection {
 
-    private final String url = "jdbc:mysql://localhost:3306/storehouse??characterEncoding=utf8&useSSL=true";
+    private final String url = "jdbc:mysql://localhost:3306/storehouse?useUnicode=true&characterEncoding=UTF-8&useSSL=false";
     private final String name = "root";
     private final String pwd = "123";
     private final String jdbc = "com.mysql.jdbc.Driver";

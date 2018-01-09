@@ -134,4 +134,18 @@ public class sql_select {
         return v;
     }
 
+    public Vector Select_goods(Message ms) throws SQLException {
+        String sql = "select * from goods";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString("Gno"));
+            v.addElement(rs.getString("Gname"));
+            v.addElement(rs.getString("Tno"));
+            v.addElement(rs.getString("Tname"));
+            v.addElement(rs.getString("Sno"));
+        }
+        return v;
+    }
 }
