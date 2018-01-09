@@ -90,6 +90,14 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_select_storeTable_dintinct))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_storeTable_distinct(ms));
+                    oos.writeObject(ms2);
+                }
+
                 else if(ms.getMesType().equals(MessageType.message_select_customsTable))
                 {
                     sql_select select = new sql_select(con);
@@ -119,6 +127,30 @@ public class MyStoreHouseServer extends Thread {
                     sql_select select = new sql_select(con);
                     Message ms2 = new Message();
                     ms2.setV(select.Select_goods(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_inputTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_inputTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_outputTable))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_outputTable(ms));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_select_stores_Gno))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_stores_Gno(ms));
                     oos.writeObject(ms2);
                 }
 
@@ -192,6 +224,15 @@ public class MyStoreHouseServer extends Thread {
                     sql_insert insert = new sql_insert(con);
                     Message ms2 = new Message();
                     ms2.setCon(String.valueOf(insert.insert_InputTable(ms)));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_insert_OutputTable))
+                {
+                    sql_insert insert = new sql_insert(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(insert.insert_OutputTable(ms)));
+//                    System.out.println(ms2.getCon());
                     oos.writeObject(ms2);
                 }
 

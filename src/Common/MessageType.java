@@ -36,4 +36,8 @@ public interface MessageType {
     String message_insert_OutputTable = "32";
 
     String message_select_goods = "33";
+    String message_select_inputTable = "34";
+    String message_select_outputTable = "35";
+    String message_select_stores_Gno = "36";
+    String message_select_storeTable_dintinct = "37";
 }

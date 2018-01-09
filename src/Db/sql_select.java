@@ -36,7 +36,7 @@ public class sql_select {
 
     public Vector Select_userTable(User u) throws SQLException {
         String sql = "select * from user";
-        System.out.println(u.getUsername());
+//        System.out.println(u.getUsername());
         if (checkEmpty.isNotEmpty(u.getUsername())) {
             sql = sql + " where username =" +"'"+ u.getUsername()+"'";
         }
@@ -77,6 +77,22 @@ public class sql_select {
             v.addElement(rs.getString("Tname"));
             v.addElement(rs.getString("Wno"));
             v.addElement(rs.getInt("Gnum"));
+        }
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+    public Vector Select_storeTable_distinct(Message ms) throws SQLException {
+        String sql = "select DISTINCT Gno,Gname,Tno,Tname from store";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString(1));
+            v.addElement(rs.getString(2));
+            v.addElement(rs.getString(3));
+            v.addElement(rs.getString(4));
         }
         rs.close();
         psmt.close();
@@ -137,6 +153,8 @@ public class sql_select {
             v.addElement(rs.getString("Wno"));
             v.addElement(rs.getString("Wname"));
             v.addElement(rs.getString("Wsize"));
+            v.addElement(rs.getString("Wu_size"));
+            v.addElement(rs.getString("Wa_size"));
             v.addElement(rs.getString("Waddr"));
         }
         rs.close();
@@ -161,5 +179,60 @@ public class sql_select {
         return v;
     }
 
+    public Vector Select_inputTable(Message ms) throws SQLException {
+        String sql = "select * from Input";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString("Gno"));
+            v.addElement(rs.getString("Gname"));
+            v.addElement(rs.getString("Tno"));
+            v.addElement(rs.getString("Tname"));
+            v.addElement(rs.getString("Sno"));
+            v.addElement(rs.getString("Wno"));
+            v.addElement(rs.getString("Inum"));
+            v.addElement(rs.getString("Idate"));
+        }
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+    public Vector Select_outputTable(Message ms) throws SQLException {
+        String sql = "select * from Output";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString("Gno"));
+            v.addElement(rs.getString("Gname"));
+            v.addElement(rs.getString("Tno"));
+            v.addElement(rs.getString("Tname"));
+            v.addElement(rs.getString("Wno"));
+            v.addElement(rs.getString("Cno"));
+            v.addElement(rs.getString("Cname"));
+            v.addElement(rs.getString("Onum"));
+            v.addElement(rs.getString("Odate"));
+        }
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+    public Vector Select_stores_Gno(Message ms) throws SQLException {
+        String sql = "select Wno from store where Gno=?";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        psmt.setString(1,(String)ms.getCon());
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString(1));
+        }
+//        System.out.println(v);
+        rs.close();
+        psmt.close();
+        return v;
+    }
 
 }
