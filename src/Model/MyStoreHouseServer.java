@@ -187,6 +187,14 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_insert_InputTable))
+                {
+                    sql_insert insert = new sql_insert(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(insert.insert_InputTable(ms)));
+                    oos.writeObject(ms2);
+                }
+
                 sqlConnection.closeCon(con);
             }
 
