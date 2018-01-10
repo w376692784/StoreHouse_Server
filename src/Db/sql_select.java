@@ -122,6 +122,22 @@ public class sql_select {
         return v;
     }
 
+    public Vector Select_storeTable_SID(Message ms) throws SQLException {
+        String sql = "select SID,Gno,Wno from store";
+        PreparedStatement psmt = con.prepareStatement(sql);
+        ResultSet rs = psmt.executeQuery();
+        Vector v = new Vector();
+        while (rs.next()) {
+            v.addElement(rs.getString(1));
+            v.addElement(rs.getString(2));
+            v.addElement(rs.getString(3));
+        }
+        rs.close();
+        psmt.close();
+        return v;
+    }
+
+
     public Vector Select_customsTable(Message ms) throws SQLException {
         String sql = "select * from custom";
 //        System.out.println(u.getUsername());
@@ -214,6 +230,7 @@ public class sql_select {
             v.addElement(rs.getString("Tname"));
             v.addElement(rs.getString("Sno"));
             v.addElement(rs.getString("Wno"));
+            v.addElement(rs.getString("Wname"));
             v.addElement(rs.getString("Inum"));
             v.addElement(rs.getDate("Idate"));
 //            v.addElement(rs.getString("Idate"));
@@ -245,7 +262,7 @@ public class sql_select {
     }
 
     public Vector Select_stores_Gno(Message ms) throws SQLException {
-        String sql = "select Wno from store where Gno=?";
+        String sql = "select DISTINCT Wno from store where Gno=?";
         PreparedStatement psmt = con.prepareStatement(sql);
         psmt.setString(1,(String)ms.getCon());
         ResultSet rs = psmt.executeQuery();

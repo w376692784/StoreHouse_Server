@@ -42,4 +42,5 @@ public interface MessageType {
     String message_select_storeTable_dintinct = "37";
     String message_select_storeTable_detl = "38";
     String message_select_OutOfDate = "40";
+    String message_select_store_SID = "41";
 }

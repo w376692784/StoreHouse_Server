@@ -79,25 +79,7 @@ public class sql_insert {
     }
 
     public int insert_InputTable(Message m) {
-        String sql = "insert into Input values (?,?,?,?,?,?,?,?)";
-        try {PreparedStatement psmt = con.prepareStatement(sql);
-            psmt.setString(1,String.valueOf(m.getV().get(0)));
-            psmt.setString(2,String.valueOf(m.getV().get(1)));
-            psmt.setString(3,String.valueOf(m.getV().get(2)));
-            psmt.setString(4,String.valueOf(m.getV().get(3)));
-            psmt.setString(5,String.valueOf(m.getV().get(4)));
-            psmt.setString(6,String.valueOf(m.getV().get(5)));
-            psmt.setString(7,String.valueOf(m.getV().get(6)));
-            psmt.setString(8,String.valueOf(m.getV().get(7)));
-//            System.out.println(m.getV());
-            return psmt.executeUpdate();
-        } catch (SQLException e) {
-            return 0;
-        }
-    }
-
-    public int insert_OutputTable(Message m) {
-        String sql = "insert into Output values (?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into Input values (?,?,?,?,?,?,?,?,?)";
         try {PreparedStatement psmt = con.prepareStatement(sql);
             psmt.setString(1,String.valueOf(m.getV().get(0)));
             psmt.setString(2,String.valueOf(m.getV().get(1)));
@@ -108,7 +90,27 @@ public class sql_insert {
             psmt.setString(7,String.valueOf(m.getV().get(6)));
             psmt.setString(8,String.valueOf(m.getV().get(7)));
             psmt.setString(9,String.valueOf(m.getV().get(8)));
-//            System.out.println(m.getV());
+            System.out.println(m.getV());
+            return psmt.executeUpdate();
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
+    public int insert_OutputTable(Message m) {
+        String sql = "insert into Output values (?,?,?,?,?,?,?,?,?,?)";
+        try {PreparedStatement psmt = con.prepareStatement(sql);
+            psmt.setString(1,String.valueOf(m.getV().get(0)));
+            psmt.setString(2,String.valueOf(m.getV().get(1)));
+            psmt.setString(3,String.valueOf(m.getV().get(2)));
+            psmt.setString(4,String.valueOf(m.getV().get(3)));
+            psmt.setString(5,String.valueOf(m.getV().get(4)));
+            psmt.setString(6,String.valueOf(m.getV().get(5)));
+            psmt.setString(7,String.valueOf(m.getV().get(6)));
+            psmt.setString(8,String.valueOf(m.getV().get(7)));
+            psmt.setString(9,String.valueOf(m.getV().get(8)));
+            psmt.setString(10,String.valueOf(m.getV().get(9)));
+            System.out.println(m.getV());
             return psmt.executeUpdate();
         } catch (SQLException e) {
             return 0;

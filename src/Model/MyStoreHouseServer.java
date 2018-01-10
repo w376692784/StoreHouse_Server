@@ -109,6 +109,14 @@ public class MyStoreHouseServer extends Thread {
                     oos.writeObject(ms2);
                 }
 
+                else if(ms.getMesType().equals(MessageType.message_select_store_SID))
+                {
+                    sql_select select = new sql_select(con);
+                    Message ms2 = new Message();
+                    ms2.setV(select.Select_storeTable_SID(ms));
+                    oos.writeObject(ms2);
+                }
+
                 else if(ms.getMesType().equals(MessageType.message_select_OutOfDate))
                 {
                     sql_select select = new sql_select(con);
@@ -178,6 +186,30 @@ public class MyStoreHouseServer extends Thread {
                     sql_update update = new sql_update(con);
                     Message ms2 = new Message();
                     ms2.setCon(String.valueOf(update.Update_User(ms.getU())));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_update_supplierTable))
+                {
+                    sql_update update = new sql_update(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(update.Update_Supplier(ms)));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_update_customsTable))
+                {
+                    sql_update update = new sql_update(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(update.Update_Custom(ms)));
+                    oos.writeObject(ms2);
+                }
+
+                else if(ms.getMesType().equals(MessageType.message_update_storehouseTable))
+                {
+                    sql_update update = new sql_update(con);
+                    Message ms2 = new Message();
+                    ms2.setCon(String.valueOf(update.Update_Storehouse(ms)));
                     oos.writeObject(ms2);
                 }
 
@@ -251,7 +283,7 @@ public class MyStoreHouseServer extends Thread {
                     sql_insert insert = new sql_insert(con);
                     Message ms2 = new Message();
                     ms2.setCon(String.valueOf(insert.insert_OutputTable(ms)));
-//                    System.out.println(ms2.getCon());
+                    System.out.println(ms2.getCon());
                     oos.writeObject(ms2);
                 }
 

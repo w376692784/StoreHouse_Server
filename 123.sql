@@ -96,6 +96,7 @@ create TABLE Input
   Tname varchar(10),
   Sno CHAR(4),
   Wno char(2),
+  Wname varchar(10),
   Inum int,
   Idate date,
   FOREIGN KEY (Gno) REFERENCES goods(Gno),
@@ -167,22 +168,36 @@ drop trigger if exists Input_tri ;
 delimiter //
 create trigger Input_tri after insert on Input for each row
  begin
-	if exists(select * from store where (Gno=new.Gno and Wno = new.Wno)) then
-	 update store set Gnum = Gnum + new.Inum where Gno= new.Gno and Wno = new.Wno;
-	else insert into store values(new.Gno,new.Gname,new.Tno,new.Tname,new.Wno,new.Inum);
-	end if;
+	insert into store values(null,new.Gno,new.Gname,new.Tno,new.Tname,new.Wno,new.Wname,new.Inum,new.Idate,null);
 end //
 
 drop trigger if exists Output_tri ;
 delimiter //
 create trigger Output_tri after insert on Output for each row
  begin
-	 update store set Gnum = Gnum - new.Onum where Gno= new.Gno and Wno = new.Wno;
-	if(select Gnum from store where Gno= new.Gno and Wno = new.Wno)<=0 then
-	 delete from store where Gno= new.Gno and Wno = new.Wno;
+	 update store set Gnum = Gnum - new.Onum where Gno= new.Gno and Wno = new.Wno and SID = new.SID;
+	if(select Gnum from store where Gno= new.Gno and Wno = new.Wno and SID = new.SID )<=0 then
+	 delete from store where Gno= new.Gno and Wno = new.Wno and SID = new.SID;
 	end if;
 end //
 
+drop trigger if exists Update_house ;
+delimiter //
+create trigger Update_house after update on warehouse for each row
+ begin
+	 update store set Wname = new.Wname where Wno= new.Wno;
+     update Input set Wname = new.Wname where Wno= new.Wno;
+     update OutOfDate set Wname = new.Wname where Wno= new.Wno;
+end //
+
+drop trigger if exists Update_custom ;
+delimiter //
+create trigger Update_custom after update on custom for each row
+ begin
+	 update Output set Cname = new.Cname where Cno= new.Cno;
+end //
+
+-- insert into Output values('24', 'G0000001', '酸奶', '001', '奶制品', '01', '0000', '1234', '1', curdate());
 -- insert into Input values('
 
 
@@ -280,4 +295,4 @@ INSERT INTO store VALUES (null,'G0000020','苹果','008','水果','02','二号�
 INSERT INTO store VALUES (null,'G0000021','纯牛奶','001','奶制品','03','三号存储',299,curdate(),null);
 INSERT INTO store VALUES (null,'G0000001','酸奶','001','奶制品','01','一号存储',10,curdate(),null);
 
-select Gno,Gname,Tno,Tname,Wno,sum(Gnum) from store group by Gno,Gname,Tno,Tname,Wno;
+-- select Gno,Gname,Tno,Tname,Wno,sum(Gnum) from store group by Gno,Gname,Tno,Tname,Wno;
