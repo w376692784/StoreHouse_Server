@@ -278,7 +278,7 @@ public class sql_select {
             v.addElement(rs.getString(10));
         }
 
-        System.out.println(v);
+//        System.out.println(v);
 
         String sql2 = "delete from OutOfDate";
         PreparedStatement psmt2 = con.prepareStatement(sql2);

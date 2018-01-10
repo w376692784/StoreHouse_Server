@@ -31,7 +31,7 @@ public class MyStoreHouseServer extends Thread {
                 Connection con = sqlConnection.getCon();
 
                 new sql_select(con).Select_OutOfDate();
-                System.out.println("success");
+//                System.out.println("success");
 
                 if(ms.getMesType().equals(MessageType.message_login))
                 {
